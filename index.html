@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reforge GTM</title>
+  <meta name="description"
+    content="Reforge GTM rebuilds broken outbound into an AI-powered operating system for B2B SaaS companies." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Saira+Condensed:wght@300;400;500;600;700;800;900&display=swap');
+
+    .saira-condensed-thin {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 100;
+      font-style: normal;
+    }
+
+    .saira-condensed-extralight {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 200;
+      font-style: normal;
+    }
+
+    .saira-condensed-light {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    .saira-condensed-regular {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .saira-condensed-medium {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    .saira-condensed-semibold {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    .saira-condensed-bold {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    .saira-condensed-extrabold {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    .saira-condensed-black {
+      font-family: "Saira Condensed", sans-serif;
+      font-weight: 900;
+      font-style: normal;
+    }
+
+    .font-bebas {
+      font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .font-saira {
+      font-family: 'Saira Condensed', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-black text-white">
+  <div x-data="{ showEmailCapture: false }" class="min-h-screen bg-black text-white">
+    <section class="relative overflow-hidden border-b border-white/10">
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.2),transparent_40%),radial-gradient(circle_at_80%_20%,rgba(239,68,68,0.2),transparent_30%)]">
+      </div>
+
+      <div class="relative mx-auto max-w-7xl px-6 py-8 lg:px-8">
+        <div class="flex items-center justify-between">
+          <div class="text-4xl uppercase tracking-normal flex items-start font-bebas leading-tight text-white">Reforge
+            <!--  2663eb for the blue -->
+            <span class="text-lg text-[#ef4345] saira-condensed-extrabold tracking-tight align-super leading-none">
+              &nbspGTM</span>
+          </div>
+          <a href="#contact"
+            class="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white hover:text-black">
+            Book a Call
+          </a>
+        </div>
+
+        <div class="grid gap-14 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:py-28">
+          <div class="max-w-3xl">
+            <div
+              class="mb-6 inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-black">
+              Built for B2B SaaS teams
+            </div>
+
+            <h1 class="max-w-4xl text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
+              Your GTM is leaking.
+            </h1>
+
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-white/70 sm:text-xl">
+              Reforge GTM rebuilds broken outbound into an AI-powered operating system that runs across tools,
+              channels, and follow-ups without constant manual work.
+            </p>
+
+            <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+              <button type="button" @click="showEmailCapture = !showEmailCapture"
+                class="rounded-2xl bg-blue-600 px-6 py-4 text-base font-semibold text-white transition hover:scale-[1.02]">
+                Fix My GTM
+              </button>
+              <a href="#services"
+                class="rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-base font-semibold transition hover:bg-white hover:text-black">
+                See How It Works
+              </a>
+            </div>
+
+            <div x-show="showEmailCapture" x-transition.opacity.scale.origin.top.left
+              class="mt-6 max-w-xl rounded-[1.5rem] border border-blue-500/40 bg-white/5 p-4 backdrop-blur">
+              <div class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Quick start</div>
+              <div class="mt-2 text-lg font-semibold text-white">Drop your work email.</div>
+              <form class="mt-4 flex flex-col gap-3 sm:flex-row">
+                <input type="email" placeholder="Work email"
+                  class="min-w-0 flex-1 rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
+                <button type="submit"
+                  class="rounded-2xl bg-yellow-400 px-5 py-3 text-sm font-semibold text-black transition hover:opacity-90">
+                  Get Started
+                </button>
+              </form>
+            </div>
+
+            <div class="mt-14 grid gap-4 sm:grid-cols-3 capitalize">
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div class="text-xl font-semibold">End-to-end</div>
+                <div class="mt-2 text-sm leading-6 text-white/60">outbound pipelines</div>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div class="text-xl font-semibold">Multi-channel</div>
+                <div class="mt-2 text-sm leading-6 text-white/60">email, LinkedIn, DMs</div>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                <div class="text-xl font-semibold">Custom</div>
+                <div class="mt-2 text-sm leading-6 text-white/60">AI agents for your workflow</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
+              <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                  <div class="text-sm font-medium text-white/70">Pipeline Health</div>
+                  <div class="mt-1 text-xs uppercase tracking-[0.2em] text-white/40">Before Reforge</div>
+                </div>
+                <div class="rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">
+                  Leaking
+                </div>
+              </div>
+
+              <div class="space-y-4 py-5">
+                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
+                  <span class="text-sm text-white/70">Lead sourcing</span>
+                  <span class="text-sm font-medium text-white/40">Disconnected</span>
+                </div>
+                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
+                  <span class="text-sm text-white/70">Personalization</span>
+                  <span class="text-sm font-medium text-white/40">Manual</span>
+                </div>
+                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
+                  <span class="text-sm text-white/70">Follow-up logic</span>
+                  <span class="text-sm font-medium text-white/40">Inconsistent</span>
+                </div>
+                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
+                  <span class="text-sm text-white/70">Inbox routing</span>
+                  <span class="text-sm font-medium text-white/40">Messy</span>
+                </div>
+                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
+                  <span class="text-sm text-white/70">Booking flow</span>
+                  <span class="text-sm font-medium text-white/40">Delayed</span>
+                </div>
+              </div>
+
+              <div class="rounded-2xl border border-blue-500 bg-blue-600 p-4 text-white">
+                <div class="text-xs uppercase tracking-[0.2em]">After Reforge</div>
+                <div class="mt-2 text-lg font-semibold">One system. Continuous execution.</div>
+                <p class="mt-2 text-sm leading-6 text-white/90">
+                  Leads flow in, agents personalize, sequences trigger, replies route, and meetings book without your
+                  team stitching tools together.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.25em] text-white/50">What you’ll get on the call</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+            No pitch deck. No black box. Just the system.
+          </h2>
+        </div>
+
+        <div class="grid gap-4">
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="mb-3 text-sm font-semibold text-blue-400">01</div>
+            <p class="text-lg leading-7">A live breakdown of where your GTM is leaking</p>
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="mb-3 text-sm font-semibold text-blue-400">02</div>
+            <p class="text-lg leading-7">A demo of how outbound would run for your business</p>
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="mb-3 text-sm font-semibold text-blue-400">03</div>
+            <p class="text-lg leading-7">How to build Claude agents specifically for your company</p>
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div class="mb-3 text-sm font-semibold text-blue-400">04</div>
+            <p class="text-lg leading-7">The operating model behind the system — no gatekeeping</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="border-y border-white/10 bg-black">
+      <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div class="max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.25em] text-white/50">Services</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+            Automating business workflows with AI, custom-built for B2B SaaS operations.
+          </h2>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
+            <div class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-red-400">Infrastructure</div>
+            <h3 class="text-xl font-semibold">AI Workflow Automation</h3>
+            <p class="mt-4 text-sm leading-7 text-white/70">
+              Replace fragmented ops with unified, AI-driven workflows built around how your company actually sells.
+            </p>
+          </div>
+          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
+            <div class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-red-400">Acquisition</div>
+            <h3 class="text-xl font-semibold">Done-For-You Outbound Systems</h3>
+            <p class="mt-4 text-sm leading-7 text-white/70">
+              Deploy automated outreach across email, LinkedIn, and direct channels with sequencing, follow-up, and
+              routing handled end to end.
+            </p>
+          </div>
+          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
+            <div class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-red-400">Intelligence</div>
+            <h3 class="text-xl font-semibold">Custom Claude-Based Agents</h3>
+            <p class="mt-4 text-sm leading-7 text-white/70">
+              Purpose-built agents trained on your messaging, processes, and internal context — designed for your team,
+              not a generic demo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+      <div
+        class="grid gap-8 rounded-[2rem] border border-yellow-400 bg-yellow-400 p-8 text-black lg:grid-cols-[1fr_auto] lg:items-center lg:p-12">
+        <div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+            No duct-taped CRM stack.<br/>
+            No babysitting AI toys.<br/>
+            No VAs chasing tasks.
+          </h2>
+        </div>
+        <a href="#contact"
+          class="inline-flex items-center justify-center rounded-2xl bg-black px-6 py-4 text-base font-semibold text-white">
+          Book Strategy Call
+        </a>
+      </div>
+    </section>
+
+    <section id="contact" class="border-t border-white/10 bg-black">
+      <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+          <div>
+            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              If your outbound depends on humans remembering to follow up, it’s already broken.
+            </h2>
+          </div>
+
+          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
+            <div class="text-xl font-semibold">Book your call</div>
+
+            <form class="mt-8 space-y-4">
+              <input type="text" placeholder="Name"
+                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
+              <input type="email" placeholder="Work email"
+                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
+              <input type="text" placeholder="Company"
+                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
+              <textarea placeholder="What’s breaking in your GTM?" rows="4"
+                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35"></textarea>
+              <button type="button" class="w-full rounded-2xl bg-blue-600 px-5 py-4 text-sm font-semibold text-white">
+                Request Demo
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>
