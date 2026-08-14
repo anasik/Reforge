@@ -1,420 +1,2639 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Reforge GTM — AI Outbound Systems for B2B SaaS</title>
+        <meta
+            name="description"
+            content="Reforge GTM builds AI-powered outbound systems, workflow automation, and custom agents for B2B SaaS companies."
+        />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ReforgeGTM - End-To-End Outbound Pipelines</title>
-  <meta name="description"
-    content="Reforge GTM rebuilds broken outbound into an AI-powered operating system for B2B SaaS companies." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Saira+Condensed:wght@300;400;500;600;700;800;900&display=swap');
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Saira+Condensed:wght@300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+        />
 
-    .saira-condensed-thin {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 100;
-      font-style: normal;
-    }
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
 
-    .saira-condensed-extralight {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 200;
-      font-style: normal;
-    }
+        <style>
+            :root {
+              --yellow: #ffd942;
+              --blue: #3157ff;
+              --red: #f43f3f;
+              --ink: #070707;
+              --panel: #101010;
+              --line: rgba(255,255,255,.14);
+            }
 
-    .saira-condensed-light {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 300;
-      font-style: normal;
-    }
+            html { scroll-behavior: smooth; }
+            body {
+              margin: 0;
+              background: var(--ink);
+              color: white;
+              font-family: "Saira Condensed", sans-serif;
+            }
 
-    .saira-condensed-regular {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 400;
-      font-style: normal;
-    }
+            [x-cloak] { display: none !important; }
 
-    .saira-condensed-medium {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 500;
-      font-style: normal;
-    }
+            .font-bebas { font-family: "Bebas Neue", sans-serif; }
+            .font-saira { font-family: "Saira Condensed", sans-serif; }
 
-    .saira-condensed-semibold {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 600;
-      font-style: normal;
-    }
+            .shell {
+              width: min(1460px, calc(100% - 32px));
+              margin-inline: auto;
+            }
 
-    .saira-condensed-bold {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 700;
-      font-style: normal;
-    }
+            .technical-frame {
+              position: relative;
+              border: 1px solid var(--line);
+              background:
+                linear-gradient(rgba(255,255,255,.025), rgba(255,255,255,.025)),
+                #0b0b0b;
+            }
 
-    .saira-condensed-extrabold {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 800;
-      font-style: normal;
-    }
+            .technical-frame::before,
+            .technical-frame::after {
+              content: "";
+              position: absolute;
+              width: 7px;
+              height: 7px;
+              background: #fff;
+              z-index: 3;
+            }
 
-    .saira-condensed-black {
-      font-family: "Saira Condensed", sans-serif;
-      font-weight: 900;
-      font-style: normal;
-    }
+            .technical-frame::before { top: -4px; left: -4px; }
+            .technical-frame::after { right: -4px; bottom: -4px; }
 
-    .font-bebas {
-      font-family: 'Bebas Neue', sans-serif;
-    }
+            .corner-tr,
+            .corner-bl {
+              position: absolute;
+              width: 7px;
+              height: 7px;
+              background: #fff;
+              z-index: 3;
+            }
+            .corner-tr { top: -4px; right: -4px; }
+            .corner-bl { left: -4px; bottom: -4px; }
 
-    .font-saira {
-      font-family: 'Saira Condensed', sans-serif;
-    }
-  </style>
-</head>
+            .grid-overlay {
+              background-image:
+                linear-gradient(to right, rgba(255,255,255,.055) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,.045) 1px, transparent 1px);
+              background-size: 56px 56px;
+              mask-image: linear-gradient(to bottom, rgba(0,0,0,.95), transparent 92%);
+            }
 
-<body class="min-h-screen bg-black text-white">
-  <div x-data="appState()" class="min-h-screen bg-black text-white">
-    <section class="relative overflow-hidden border-b border-white/10">
-      <div
-        class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.2),transparent_40%),radial-gradient(circle_at_80%_20%,rgba(239,68,68,0.2),transparent_30%)]">
-      </div>
+            .signal-ticker-stage {
+              position: relative;
+              overflow: hidden;
+              min-height: 620px;
+              background: #0a0a0a;
+            }
 
-      <div class="relative mx-auto max-w-7xl px-6 py-8 lg:px-8">
-        <div class="flex items-center justify-between">
-          <div class="text-4xl uppercase tracking-normal flex items-start font-bebas leading-tight text-white">Reforge
-            <!--  2663eb for the blue -->
-            <span class="text-lg text-[#ef4345] saira-condensed-extrabold tracking-tight align-super leading-none">
-              &nbspGTM</span>
-          </div>
-          <a href="#contact"
-            class="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white hover:text-black">
-            Book a Call
-          </a>
-        </div>
+            .hero-signal-console {
+              position: absolute;
+              inset: 34px;
+              overflow: hidden;
+              border: 1px solid rgba(255,255,255,.14);
+              background: #0d0d0d;
+            }
 
-        <div class="grid gap-14 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:py-28">
-          <div class="max-w-3xl">
+            .hero-signal-console::before,
+            .hero-signal-console::after {
+              content: "";
+              position: absolute;
+              width: 7px;
+              height: 7px;
+              background: #fff;
+              z-index: 5;
+            }
+
+            .hero-signal-console::before {
+              top: -4px;
+              left: -4px;
+            }
+
+            .hero-signal-console::after {
+              right: -4px;
+              bottom: -4px;
+            }
+
+            .hero-signal-header {
+              position: relative;
+              z-index: 4;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 20px;
+              min-height: 58px;
+              padding: 0 20px;
+              border-bottom: 1px solid rgba(255,255,255,.10);
+              background: #0d0d0d;
+            }
+
+            .hero-signal-live {
+              display: inline-flex;
+              align-items: center;
+              gap: 9px;
+              font-size: 10px;
+              font-weight: 800;
+              letter-spacing: .18em;
+              text-transform: uppercase;
+              color: rgba(255,255,255,.62);
+            }
+
+            .hero-signal-live-dot {
+              width: 7px;
+              height: 7px;
+              background: var(--yellow);
+              box-shadow: 0 0 16px rgba(255,217,66,.8);
+              animation: signalPulse 1.7s ease-in-out infinite;
+            }
+
+            .hero-signal-icp {
+              color: var(--yellow);
+            }
+
+            .hero-signal-status {
+              font-family: "Bebas Neue", sans-serif;
+              font-size: 20px;
+              letter-spacing: .04em;
+              color: rgba(255,255,255,.20);
+            }
+
+            .hero-signal-window {
+              position: absolute;
+              inset: 58px 0 0;
+              overflow: hidden;
+            }
+
+            .hero-signal-window::before,
+            .hero-signal-window::after {
+              content: "";
+              position: absolute;
+              left: 0;
+              right: 0;
+              height: 62px;
+              z-index: 3;
+              pointer-events: none;
+            }
+
+            .hero-signal-window::before {
+              top: 0;
+              background: linear-gradient(to bottom, #0d0d0d 8%, rgba(13,13,13,0));
+            }
+
+            .hero-signal-window::after {
+              bottom: 0;
+              background: linear-gradient(to top, #0d0d0d 8%, rgba(13,13,13,0));
+            }
+
+            .hero-signal-track {
+              will-change: transform;
+              animation: heroSignalTicker 24s linear infinite;
+            }
+
+            .hero-signal-console:hover .hero-signal-track {
+              animation-play-state: paused;
+            }
+
+            .hero-signal-row {
+              min-height: 92px;
+              padding: 18px 20px 16px;
+              border-bottom: 1px solid rgba(255,255,255,.08);
+            }
+
+            .hero-signal-row:nth-child(even) {
+              background: rgba(255,255,255,.012);
+            }
+
+            .hero-signal-primary {
+              display: flex;
+              align-items: baseline;
+              gap: 9px;
+              min-width: 0;
+              font-size: 17px;
+              line-height: 1.08;
+            }
+
+            .hero-signal-time {
+              flex: 0 0 auto;
+              font-family: "Bebas Neue", sans-serif;
+              font-size: 18px;
+              color: rgba(255,255,255,.28);
+            }
+
+            .hero-signal-type {
+              flex: 0 0 auto;
+              font-size: 11px;
+              font-weight: 800;
+              letter-spacing: .08em;
+              text-transform: uppercase;
+              color: var(--yellow);
+            }
+
+            .hero-signal-event {
+              min-width: 0;
+              font-weight: 700;
+              color: rgba(255,255,255,.90);
+            }
+
+            .hero-signal-secondary {
+              margin-top: 8px;
+              padding-left: 53px;
+              font-size: 13px;
+              font-weight: 500;
+              letter-spacing: .03em;
+              color: rgba(255,255,255,.35);
+            }
+
+            .hero-signal-footer {
+              position: absolute;
+              z-index: 4;
+              right: 16px;
+              bottom: 14px;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              border: 1px solid rgba(255,255,255,.12);
+              background: #0d0d0d;
+              padding: 8px 10px;
+              font-size: 9px;
+              font-weight: 800;
+              letter-spacing: .14em;
+              text-transform: uppercase;
+              color: rgba(255,255,255,.34);
+            }
+
+            @keyframes signalPulse {
+              0%, 100% { opacity: .45; transform: scale(.85); }
+              50% { opacity: 1; transform: scale(1); }
+            }
+
+            @keyframes heroSignalTicker {
+              from { transform: translateY(0); }
+              to { transform: translateY(-50%); }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+              .hero-signal-track,
+              .hero-signal-live-dot {
+                animation: none;
+              }
+            }
+
+            @media (max-width: 1024px) {
+              .signal-ticker-stage { min-height: 500px; }
+              .hero-signal-console { inset: 24px; }
+            }
+
+            @media (max-width: 640px) {
+              .signal-ticker-stage { min-height: 430px; }
+              .hero-signal-console { inset: 14px; }
+              .hero-signal-header { padding-inline: 14px; }
+              .hero-signal-row { min-height: 86px; padding-inline: 14px; }
+              .hero-signal-primary { gap: 7px; font-size: 14px; }
+              .hero-signal-time { font-size: 16px; }
+              .hero-signal-type { font-size: 9px; }
+              .hero-signal-secondary { padding-left: 45px; font-size: 11px; }
+              .hero-signal-status { display: none; }
+            }
+
+            .eyebrow::before {
+              content: "";
+              display: inline-block;
+              width: 4px;
+              height: 14px;
+              margin-right: 10px;
+              vertical-align: -2px;
+              background: var(--yellow);
+            }
+
+            .display {
+              font-family: "Bebas Neue", sans-serif;
+              letter-spacing: -.025em;
+              line-height: .86;
+            }
+
+            .section-number {
+              font-family: "Bebas Neue", sans-serif;
+              font-size: clamp(4rem, 8vw, 8rem);
+              line-height: .75;
+              color: rgba(255,255,255,.09);
+            }
+
+            .service-card {
+              transition: transform .25s ease, border-color .25s ease, background .25s ease;
+            }
+
+            .service-card:hover {
+              transform: translateY(-5px);
+              border-color: rgba(255,216,0,.5);
+              background: #151515;
+            }
+
+            .reveal {
+              animation: reveal .7s cubic-bezier(.2,.8,.2,1) both;
+            }
+
+            @keyframes reveal {
+              from { opacity: 0; transform: translateY(18px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+
+            @media (max-width: 1024px) {
+              .orb-stage { min-height: 500px; }
+              .orb { width: min(78vw, 500px); }
+            }
+
+            @media (max-width: 640px) {
+              .shell { width: min(100% - 20px, 1460px); }
+              .orb-stage { min-height: 380px; }
+              .orb { width: 86vw; }
+            }
+
+
+            .signal-board {
+              border: 1px solid rgba(255,255,255,.14);
+              background:
+                linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px),
+                #0d0d0d;
+              background-size: 48px 48px;
+            }
+
+            .signal-head,
+            .signal-item {
+              display: grid;
+              grid-template-columns: 72px minmax(0,1.4fr) minmax(130px,.6fr) 90px;
+              align-items: center;
+            }
+
+            .signal-head {
+              border-bottom: 1px solid rgba(255,255,255,.12);
+              min-height: 54px;
+              font-size: 10px;
+              font-weight: 800;
+              letter-spacing: .16em;
+              text-transform: uppercase;
+              color: rgba(255,255,255,.38);
+            }
+
+            .signal-item {
+              min-height: 88px;
+              border-bottom: 1px solid rgba(255,255,255,.1);
+              transition: background .2s ease;
+            }
+
+            .signal-item:last-child { border-bottom: 0; }
+            .signal-item:hover { background: rgba(255,255,255,.025); }
+
+            .signal-cell {
+              height: 100%;
+              display: flex;
+              align-items: center;
+              padding: 0 18px;
+              border-right: 1px solid rgba(255,255,255,.08);
+            }
+
+            .signal-cell:last-child { border-right: 0; }
+
+            .signal-index {
+              font-family: "Bebas Neue", sans-serif;
+              font-size: 28px;
+              color: rgba(255,255,255,.18);
+            }
+
+            .signal-score {
+              font-family: "Bebas Neue", sans-serif;
+              font-size: 34px;
+              color: var(--yellow);
+              justify-content: flex-end;
+            }
+
+            .signal-meta {
+              font-size: 11px;
+              font-weight: 700;
+              letter-spacing: .12em;
+              text-transform: uppercase;
+              color: rgba(255,255,255,.36);
+            }
+
+            .signal-bar {
+              height: 4px;
+              margin-top: 10px;
+              background: rgba(255,255,255,.08);
+              overflow: hidden;
+            }
+
+            .signal-bar > span {
+              display: block;
+              height: 100%;
+              background: var(--yellow);
+            }
+
+            .timeline-grid {
+              display: grid;
+              gap: 1px;
+              background: rgba(255,255,255,.1);
+            }
+
+            .timeline-stage {
+              position: relative;
+              min-height: 260px;
+              padding: 28px;
+              background: #0d0d0d;
+              transition: background .2s ease, color .2s ease;
+            }
+
+            .timeline-stage:hover {
+              background: var(--yellow);
+              color: #000;
+            }
+
+            .timeline-stage:hover p,
+            .timeline-stage:hover .muted-on-hover {
+              color: rgba(0,0,0,.68);
+            }
+
+            .timeline-stage .stage-no {
+              position: absolute;
+              top: 20px;
+              right: 24px;
+              font-family: "Bebas Neue", sans-serif;
+              font-size: 72px;
+              line-height: 1;
+              color: rgba(255,255,255,.08);
+            }
+
+            .timeline-stage:hover .stage-no {
+              color: rgba(0,0,0,.1);
+            }
+
+            .pricing-grid {
+              display: grid;
+              gap: 1px;
+              background: rgba(255,255,255,.12);
+            }
+
+            .pricing-card {
+              min-height: 430px;
+              padding: 34px;
+              background: #0d0d0d;
+              position: relative;
+            }
+
+            .pricing-card.featured {
+              background: var(--yellow);
+              color: #000;
+            }
+
+            .pricing-card .price {
+              font-family: "Bebas Neue", sans-serif;
+              font-size: clamp(4rem, 7vw, 7rem);
+              line-height: .8;
+            }
+
+            .faq-row {
+              border-top: 1px solid rgba(0,0,0,.14);
+            }
+
+            .faq-row:last-child {
+              border-bottom: 1px solid rgba(0,0,0,.14);
+            }
+
+            .faq-button {
+              width: 100%;
+              display: grid;
+              grid-template-columns: 64px 1fr auto;
+              align-items: center;
+              gap: 20px;
+              padding: 24px 0;
+              text-align: left;
+            }
+
+            .faq-answer {
+              padding: 0 0 26px 84px;
+              max-width: 920px;
+              color: rgba(0,0,0,.62);
+              font-size: 18px;
+              line-height: 1.2;
+            }
+
+            @media (max-width: 760px) {
+              .signal-head { display: none; }
+              .signal-item {
+                grid-template-columns: 52px 1fr 70px;
+                min-height: 110px;
+              }
+              .signal-item .signal-cell:nth-child(3) { display: none; }
+              .signal-cell { padding: 0 12px; }
+              .faq-button { grid-template-columns: 44px 1fr auto; }
+              .faq-answer { padding-left: 64px; }
+            }
+
+
+            .brick-field {
+              position: absolute;
+              inset: 0;
+              pointer-events: none;
+              overflow: hidden;
+              z-index: 0;
+            }
+
+            .brick {
+              position: absolute;
+              background: rgba(255,255,255,.035);
+              border: 1px solid rgba(255,255,255,.015);
+            }
+
+            .brick.light {
+              background: rgba(0,0,0,.035);
+              border-color: rgba(0,0,0,.018);
+            }
+
+            .brick-dark {
+              background: rgba(255,255,255,.028);
+            }
+
+            .brick-accent {
+              background: rgba(237,50,43,.11);
+              border-color: rgba(237,50,43,.06);
+            }
+
+            .brick-step-left .b1 { left: 0; bottom: 0; width: 16%; height: 34%; }
+            .brick-step-left .b2 { left: 8%; bottom: 18%; width: 18%; height: 34%; }
+            .brick-step-left .b3 { left: 17%; bottom: 36%; width: 18%; height: 34%; }
+            .brick-step-left .b4 { left: 28%; bottom: 54%; width: 16%; height: 28%; }
+
+            .brick-step-right .b1 { right: 0; bottom: 0; width: 16%; height: 34%; }
+            .brick-step-right .b2 { right: 8%; bottom: 18%; width: 18%; height: 34%; }
+            .brick-step-right .b3 { right: 17%; bottom: 36%; width: 18%; height: 34%; }
+            .brick-step-right .b4 { right: 28%; bottom: 54%; width: 16%; height: 28%; }
+
+            .brick-crown .b1 { left: 0; top: 0; width: 17%; height: 24%; }
+            .brick-crown .b2 { left: 8%; top: 0; width: 18%; height: 14%; }
+            .brick-crown .b3 { left: 20%; top: 0; width: 14%; height: 8%; }
+            .brick-crown .b4 { right: 0; top: 0; width: 17%; height: 24%; }
+            .brick-crown .b5 { right: 8%; top: 0; width: 18%; height: 14%; }
+            .brick-crown .b6 { right: 20%; top: 0; width: 14%; height: 8%; }
+
+            .brick-divider {
+              position: relative;
+              min-height: 180px;
+              overflow: hidden;
+              border-top: 1px solid rgba(255,255,255,.1);
+              border-bottom: 1px solid rgba(255,255,255,.1);
+              background: #0a0a0a;
+            }
+
+            .brick-divider.light {
+              background: #f4f3ef;
+              border-color: rgba(0,0,0,.12);
+            }
+
+            @media (max-width: 760px) {
+              .brick-step-left .b4,
+              .brick-step-right .b4,
+              .brick-crown .b3,
+              .brick-crown .b6 {
+                display: none;
+              }
+
+              .brick-divider {
+                min-height: 120px;
+              }
+            }
+        </style>
+    </head>
+
+    <body x-data="appState()">
+        <header class="shell pt-4">
+            <div class="technical-frame min-h-[760px] overflow-hidden">
+                <div class="brick-field brick-crown">
+                    <span class="brick brick-dark b1"></span>
+                    <span class="brick brick-dark b2"></span>
+                    <span class="brick brick-accent b3"></span>
+                    <span class="brick brick-dark b4"></span>
+                    <span class="brick brick-dark b5"></span>
+                    <span class="brick brick-accent b6"></span>
+                </div>
+                <span class="corner-tr"></span>
+                <span class="corner-bl"></span>
+                <div
+                    class="pointer-events-none absolute inset-0 grid-overlay"
+                ></div>
+
+                <nav
+                    class="relative z-20 grid grid-cols-[1fr_auto] items-start border-b border-white/10 px-5 py-5 md:grid-cols-[220px_1fr_auto] md:px-7"
+                >
+                    <a href="#" class="inline-flex items-start text-white">
+                        <span
+                            class="font-bebas text-2xl leading-none tracking-[.03em]"
+                            >Reforge</span
+                        ><span
+                            class="font-saira relative -top-1 text-[10px] font-bold uppercase tracking-[.16em]"
+                            >GTM</span
+                        >
+                    </a>
+
+                    <div
+                        class="hidden justify-self-start pl-10 text-[12px] font-semibold uppercase leading-[1.05] tracking-[.16em] text-white/55 md:block"
+                    >
+                        <a href="#signal-engine" class="block hover:text-white"
+                            >Process</a
+                        >
+                        <a href="#pricing" class="block hover:text-white"
+                            >Services</a
+                        >
+                        <a href="#consultation" class="block hover:text-white"
+                            >Contact</a
+                        >
+                    </div>
+
+                    <a
+                        href="#consultation"
+                        class="border border-white bg-white px-5 py-3 text-[12px] font-bold uppercase tracking-[.16em] text-black transition hover:bg-[var(--yellow)]"
+                    >
+                        Book a call
+                    </a>
+                </nav>
+
+                <div
+                    class="relative z-10 grid min-h-[690px] lg:grid-cols-[1.06fr_.94fr]"
+                >
+                    <div
+                        class="flex flex-col justify-between border-b border-white/10 p-6 md:p-10 lg:border-b-0 lg:border-r"
+                    >
+                        <div></div>
+
+                        <div class="py-12 md:py-16">
+                            <p
+                                class="eyebrow mb-7 text-[12px] font-bold uppercase tracking-[.18em] text-white/70"
+                            >
+                                Your sales team on steroids with zero SDR
+                                overhead.
+                            </p>
+
+                            <h1
+                                class="display max-w-[880px] text-[72px] sm:text-[96px] md:text-[124px] xl:text-[148px]"
+                            >
+                                YOUR NEXT CLIENT JUST<br />
+                                HIRED A NEW CMO<br />
+                                <!-- You'll convert them first -->
+                            </h1>
+
+                            <div
+                                class="mt-10 grid gap-8 md:grid-cols-[minmax(0,360px)_auto] md:items-end"
+                            >
+                                <p
+                                    class="max-w-md text-lg leading-[1.18] text-white/72 md:text-xl"
+                                >
+                                    Reforge builds AI-powered outbound engines
+                                    that catch buying signals the moment they
+                                    fire.
+                                    <!-- builds the outbound engine behind your
+                                    growth—from lead sourcing and
+                                    personalization to routing, follow-up, and
+                                    booked meetings. -->
+                                </p>
+
+                                <button
+                                    type="button"
+                                    @click="showEmail = true"
+                                    class="group inline-flex w-fit items-center gap-8 bg-[var(--yellow)] px-6 py-4 text-[12px] font-bold uppercase tracking-[.18em] text-black transition hover:translate-x-1"
+                                >
+                                    Get a free GTM audit
+                                    <span
+                                        class="grid h-5 w-5 place-items-center bg-black text-white transition group-hover:rotate-45"
+                                        >↗</span
+                                    >
+                                </button>
+                            </div>
+
+                            <div
+                                x-cloak
+                                x-show="showEmail"
+                                x-transition
+                                class="mt-7 max-w-xl border border-white/15 bg-black/90 p-3"
+                            >
+                                <form @submit.prevent="submitQuickStart()" class="flex flex-col gap-3 sm:flex-row">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        x-model="quickStartEmail"
+                                        required
+                                        placeholder="WORK EMAIL"
+                                        class="min-w-0 flex-1 border border-white/15 bg-white/5 px-4 py-3 text-sm tracking-[.08em] text-white outline-none placeholder:text-white/35 focus:border-[var(--yellow)]"
+                                    />
+                                    <button
+                                        type="submit"
+                                        :disabled="quickStartLoading"
+                                        class="bg-[var(--blue)] px-6 py-3 text-xs font-bold uppercase tracking-[.16em] text-white disabled:opacity-50"
+                                    >
+                                        <span x-show="!quickStartLoading">Submit</span>
+                                        <span x-show="quickStartLoading">Sending...</span>
+                                    </button>
+                                </form>
+                                <div x-show="quickStartSuccess" class="mt-3 text-sm font-semibold text-[var(--yellow)]">✓ Check your email!</div>
+                                <div x-show="quickStartError" class="mt-3 text-sm font-semibold text-red-400" x-text="quickStartError"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="signal-ticker-stage border-white/10">
+                        <div class="hero-signal-console">
+                            <div class="hero-signal-header">
+                                <div class="hero-signal-live">
+                                    <span class="hero-signal-live-dot"></span>
+                                    <span>Live buying signals</span>
+                                    <span class="text-white/20">·</span>
+                                    <span class="hero-signal-icp"
+                                        >your ICP</span
+                                    >
+                                </div>
+                                <span class="hero-signal-status"
+                                    >LIVE FEED</span
+                                >
+                            </div>
+
+                            <div class="hero-signal-window">
+                                <div class="hero-signal-track">
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[14:02]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >funding</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >Series B announced</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            $18M raise · GTM expansion planned
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[13:47]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >new_hire</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >New CMO joined</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            first 90 days · agenda taking shape
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[13:31]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >hiring</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >4 SDR roles posted</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            outbound team scaling up
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[13:12]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >ad_spend</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >22 new ad creatives live</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            paid acquisition ramping fast
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:58]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >expansion</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >US office opened</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            new territory · new vendors
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:40]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >tech</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >Cloud migration kicked
+                                                off</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            infrastructure decisions in motion
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:24]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >tech</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >CRM switched</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            rebuilding the revenue stack
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:05]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >intent</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >Pricing page visits up 3x</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            active evaluation underway
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[14:02]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >funding</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >Series B announced</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            $18M raise · GTM expansion planned
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[13:47]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >new_hire</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >New CMO joined</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            first 90 days · agenda taking shape
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[13:31]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >hiring</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >4 SDR roles posted</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            outbound team scaling up
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[13:12]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >ad_spend</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >22 new ad creatives live</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            paid acquisition ramping fast
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:58]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >expansion</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >US office opened</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            new territory · new vendors
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:40]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >tech</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >Cloud migration kicked
+                                                off</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            infrastructure decisions in motion
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:24]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >tech</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >CRM switched</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            rebuilding the revenue stack
+                                        </div>
+                                    </div>
+                                    <div class="hero-signal-row">
+                                        <div class="hero-signal-primary">
+                                            <span class="hero-signal-time"
+                                                >[12:05]</span
+                                            >
+                                            <span class="hero-signal-type"
+                                                >intent</span
+                                            >
+                                            <span class="hero-signal-event"
+                                                >Pricing page visits up 3x</span
+                                            >
+                                        </div>
+                                        <div class="hero-signal-secondary">
+                                            active evaluation underway
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hero-signal-footer">
+                                <span
+                                    class="h-[5px] w-[5px] bg-[var(--yellow)]"
+                                ></span>
+                                signal engine active
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="signal-engine" class="shell py-24 md:py-32">
+                <div
+                    class="grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-end"
+                >
+                    <div>
+                        <p
+                            class="text-xs font-bold uppercase tracking-[.18em] text-[var(--yellow)]"
+                        >
+                            Signal intelligence
+                        </p>
+                        <h2
+                            class="display mt-5 max-w-2xl text-6xl sm:text-7xl md:text-8xl"
+                        >
+                            Signal-ranked outreach for high-intent prospects.
+                        </h2>
+                        <p
+                            class="mt-7 max-w-lg text-xl leading-[1.15] text-white/58"
+                        >
+                            Your next best clients are already sending signals.
+                            We find them, understand why they're in the market
+                            and turn those signals into personalized outreach,
+                            built to convert.
+                        </p>
+                    </div>
+
+                    <div class="signal-board">
+                        <div class="signal-head">
+                            <div class="signal-cell">No.</div>
+                            <div class="signal-cell">Buying Signal</div>
+                            <div class="signal-cell">Source</div>
+                            <!-- <div class="signal-cell justify-end">Leads</div> -->
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-cell signal-index">01</div>
+                            <div class="signal-cell">
+                                <div class="w-full">
+                                    <h3 class="text-2xl font-bold leading-none">
+                                        Recently Hired CMO / VP Marketing
+                                    </h3>
+                                    <p
+                                        class="mt-2 text-sm leading-none text-white/38"
+                                    >
+                                        Fresh mandate, new targets, new appetite
+                                        for change.
+                                    </p>
+                                    <div class="signal-bar">
+                                        <span style="width: 100%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-cell signal-meta">LinkedIn</div>
+                            <!-- <div class="signal-cell signal-score">+30</div> -->
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-cell signal-index">02</div>
+                            <div class="signal-cell">
+                                <div class="w-full">
+                                    <h3 class="text-2xl font-bold leading-none">
+                                        High Ad Volume + Creative Weakness
+                                    </h3>
+                                    <p
+                                        class="mt-2 text-sm leading-none text-white/38"
+                                    >
+                                        More creative spend, higher budget, more
+                                        pressure to convert.
+                                    </p>
+                                    <div class="signal-bar">
+                                        <span style="width: 84%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-cell signal-meta">Adyntel</div>
+                            <!-- <div class="signal-cell signal-score">+25</div> -->
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-cell signal-index">03</div>
+                            <div class="signal-cell">
+                                <div class="w-full">
+                                    <h3 class="text-2xl font-bold leading-none">
+                                        Shoptalk / AdWeek / Dubai Lynx
+                                    </h3>
+                                    <p
+                                        class="mt-2 text-sm leading-none text-white/38"
+                                    >
+                                        The market is being actively explored,
+                                        not passively watched.
+                                    </p>
+                                    <div class="signal-bar">
+                                        <span style="width: 68%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-cell signal-meta">
+                                Event lists
+                            </div>
+                            <!-- <div class="signal-cell signal-score">+20</div> -->
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-cell signal-index">04</div>
+                            <div class="signal-cell">
+                                <div class="w-full">
+                                    <h3 class="text-2xl font-bold leading-none">
+                                        Low organic footprint
+                                    </h3>
+                                    <p
+                                        class="mt-2 text-sm leading-none text-white/38"
+                                    >
+                                        Competitors are taking share while
+                                        internal pressure rises.
+                                    </p>
+                                    <div class="signal-bar">
+                                        <span style="width: 50%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-cell signal-meta">SEMRUSH</div>
+                            <!-- <div class="signal-cell signal-score">+15</div> -->
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-cell signal-index">05</div>
+                            <div class="signal-cell">
+                                <div class="w-full">
+                                    <h3 class="text-2xl font-bold leading-none">
+                                        Prospect engaged with competitor content
+                                    </h3>
+                                    <p
+                                        class="mt-2 text-sm leading-none text-white/38"
+                                    >
+                                        Problem awareness is visible before a
+                                        form is ever submitted.
+                                    </p>
+                                    <div class="signal-bar">
+                                        <span style="width: 34%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-cell signal-meta">Trigify</div>
+                            <!-- <div class="signal-cell signal-score">+10</div> -->
+                        </div>
+                        <div class="signal-item">
+                            <div class="signal-cell signal-index">06</div>
+                            <div class="signal-cell">
+                                <div class="w-full">
+                                    <h3 class="text-2xl font-bold leading-none">
+                                        Shopify+Klavio+Paid Ads
+                                    </h3>
+                                    <p
+                                        class="mt-2 text-sm leading-none text-white/38"
+                                    >
+                                        Problem awareness is visible before a
+                                        form is ever submitted.
+                                    </p>
+                                    <div class="signal-bar">
+                                        <span style="width: 34%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-cell signal-meta">
+                                Wappalyzer
+                            </div>
+                            <!-- <div class="signal-cell signal-score">+10</div> -->
+                        </div>
+                        <div class="signal-item">
+                            <div class="signal-cell signal-index">07</div>
+                            <div class="signal-cell">
+                                <div class="w-full">
+                                    <h3 class="text-2xl font-bold leading-none">
+                                        Launched a new product
+                                    </h3>
+                                    <p
+                                        class="mt-2 text-sm leading-none text-white/38"
+                                    >
+                                        Problem awareness is visible before a
+                                        form is ever submitted.
+                                    </p>
+                                    <div class="signal-bar">
+                                        <span style="width: 34%"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signal-cell signal-meta">Clay</div>
+                            <!-- <div class="signal-cell signal-score">+10</div> -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="process" class="border-y border-white/10 bg-[#0d0d0d]">
+                <div class="shell relative z-10 py-24 md:py-32">
+                    <div class="grid gap-12 lg:grid-cols-[.78fr_1.22fr]">
+                        <div>
+                            <p
+                                class="text-xs font-bold uppercase tracking-[.18em] text-[var(--yellow)]"
+                            >
+                                From diagnosis to live
+                            </p>
+                            <h2
+                                class="display mt-5 max-w-2xl text-6xl sm:text-7xl md:text-8xl"
+                            >
+                                BUILT FAST.<br />RUN PROPERLY.
+                            </h2>
+                            <p
+                                class="mt-7 max-w-lg text-xl leading-[1.15] text-white/58"
+                            >
+                                The point is not to give you more software. It
+                                is to get a working outbound operating system
+                                live quickly, then improve it with real market
+                                feedback.
+                            </p>
+                        </div>
+
+                        <div class="timeline-grid md:grid-cols-2">
+                            <article class="timeline-stage">
+                                <span class="stage-no">01</span>
+                                <p
+                                    class="text-xs font-black uppercase tracking-[.18em] text-[var(--yellow)]"
+                                >
+                                    Day 0
+                                </p>
+                                <h3
+                                    class="mt-20 max-w-xs text-4xl font-bold leading-[.9]"
+                                >
+                                    Diagnose the leak
+                                </h3>
+                                <p
+                                    class="muted-on-hover mt-6 max-w-sm text-lg leading-[1.15] text-white/52"
+                                >
+                                    We map your ICP, channels, messaging,
+                                    tooling, handoffs, and every point where
+                                    leads currently disappear.
+                                </p>
+                            </article>
+
+                            <article class="timeline-stage">
+                                <span class="stage-no">02</span>
+                                <p
+                                    class="text-xs font-black uppercase tracking-[.18em] text-[var(--yellow)]"
+                                >
+                                    Days 1–3
+                                </p>
+                                <h3
+                                    class="mt-20 max-w-xs text-4xl font-bold leading-[.9]"
+                                >
+                                    Design the operating system
+                                </h3>
+                                <p
+                                    class="muted-on-hover mt-6 max-w-sm text-lg leading-[1.15] text-white/52"
+                                >
+                                    We define signals, routing, personalisation,
+                                    agent roles, follow-up logic, and the path
+                                    from account selection to meeting.
+                                </p>
+                            </article>
+
+                            <article class="timeline-stage">
+                                <span class="stage-no">03</span>
+                                <p
+                                    class="text-xs font-black uppercase tracking-[.18em] text-[var(--yellow)]"
+                                >
+                                    Days 4–7
+                                </p>
+                                <h3
+                                    class="mt-20 max-w-xs text-4xl font-bold leading-[.9]"
+                                >
+                                    Build and launch
+                                </h3>
+                                <p
+                                    class="muted-on-hover mt-6 max-w-sm text-lg leading-[1.15] text-white/52"
+                                >
+                                    We connect the stack, configure agents,
+                                    prepare campaigns, and put the first
+                                    complete workflow into production.
+                                </p>
+                            </article>
+
+                            <article class="timeline-stage">
+                                <span class="stage-no">04</span>
+                                <p
+                                    class="text-xs font-black uppercase tracking-[.18em] text-[var(--yellow)]"
+                                >
+                                    After launch
+                                </p>
+                                <h3
+                                    class="mt-20 max-w-xs text-4xl font-bold leading-[.9]"
+                                >
+                                    Learn and compound
+                                </h3>
+                                <p
+                                    class="muted-on-hover mt-6 max-w-sm text-lg leading-[1.15] text-white/52"
+                                >
+                                    Strong signals, angles, and segments get
+                                    reinforced. Weak paths get removed before
+                                    they become permanent process.
+                                </p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                id="channels"
+                class="relative overflow-hidden border-y border-white/10 bg-[#090909] text-white"
+                x-data="{
+        active: 0,
+        mixes: [
+          {
+            name: 'SAAS',
+            note: 'B2B · considered purchase',
+            summary: 'Email and LinkedIn carry more weight when buying committees are larger and research happens before the conversation.',
+            values: [30, 42, 22, 6]
+          },
+          {
+            name: 'DTC',
+            note: 'Consumer · high-volume',
+            summary: 'LinkedIn becomes more prominent when the buyer is visible, accessible and actively building in public.',
+            values: [48, 28, 16, 8]
+          },
+          {
+            name: 'TRADES',
+            note: 'Local · phone-first',
+            summary: 'Calls and SMS can matter more when sales cycles are shorter and direct response is easier to earn.',
+            values: [14, 30, 38, 18]
+          }
+        ],
+        next() { this.active = (this.active + 1) % this.mixes.length },
+        prev() { this.active = (this.active - 1 + this.mixes.length) % this.mixes.length },
+        offset(index) {
+          return -this.mixes[this.active].values.slice(0, index).reduce((a, b) => a + b, 0)
+        }
+      }"
+                x-init="setInterval(() => next(), 5200)"
+            >
+                <div class="shell relative z-10 py-24 md:py-32">
+                    <div
+                        class="grid gap-10 lg:grid-cols-1 lg:text-center"
+                    >
+                        <div>
+                            <p
+                                class="text-xs font-black uppercase tracking-[.18em] text-[var(--yellow)]"
+                            >
+                                Channel Mix
+                            </p>
+
+                            <h2
+                                class="display mt-5 max-w-3xl text-6xl sm:text-7xl md:text-8xl lg:mx-auto lg:max-w-none lg:whitespace-nowrap lg:text-[clamp(3rem,6.5vw,6rem)]"
+                            >
+                                THE MIX<br class="lg:hidden" />
+                                <span class="text-[var(--yellow)]"
+                                    >FOLLOWS THE ICP.</span
+                                >
+                            </h2>
+                        </div>
+
+                        <p
+                            class="max-w-xl text-xl leading-[1.15] text-white/52 lg:mx-auto"
+                        >
+                            Same outbound capability. Different allocation based
+                            on who you sell to and how they buy.
+                        </p>
+                    </div>
+
+                    <div class="mt-16 border border-white/15 bg-[#0d0d0d]">
+                        <div class="grid lg:grid-cols-[.9fr_1.1fr]">
+                            <!-- LEFT: CURRENT ICP -->
+                            <div
+                                class="flex min-h-[520px] flex-col justify-between border-b border-white/10 p-7 md:p-10 lg:border-b-0 lg:border-r"
+                            >
+                                <div
+                                    class="flex items-start justify-between gap-6"
+                                >
+                                    <div>
+                                        <p
+                                            class="text-[10px] font-black uppercase tracking-[.2em] text-white/30"
+                                        >
+                                            Current ICP
+                                        </p>
+
+                                        <div class="mt-5 min-h-[105px]">
+                                            <h3
+                                                class="text-4xl font-bold leading-none transition-all duration-500"
+                                                x-text="mixes[active].name"
+                                                :key="'name-' + active"
+                                            ></h3>
+
+                                            <p
+                                                class="mt-3 text-[10px] font-black uppercase tracking-[.16em] text-white/30"
+                                                x-text="mixes[active].note"
+                                            ></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <button
+                                            type="button"
+                                            @click="prev()"
+                                            class="grid h-10 w-10 place-items-center border border-white/15 text-white/55 transition hover:border-[var(--yellow)] hover:text-[var(--yellow)]"
+                                            aria-label="Previous ICP"
+                                        >
+                                            ←
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            @click="next()"
+                                            class="grid h-10 w-10 place-items-center border border-white/15 text-white/55 transition hover:border-[var(--yellow)] hover:text-[var(--yellow)]"
+                                            aria-label="Next ICP"
+                                        >
+                                            →
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <p
+                                    class="max-w-lg text-2xl leading-[1.08] text-white/58 transition-opacity duration-500"
+                                    x-text="mixes[active].summary"
+                                ></p>
+
+                                <div class="flex gap-2">
+                                    <template
+                                        x-for="(_, index) in mixes"
+                                        :key="index"
+                                    >
+                                        <button
+                                            type="button"
+                                            @click="active = index"
+                                            class="h-[3px] flex-1 bg-white/10"
+                                            :aria-label="'Show ICP ' + (index + 1)"
+                                        >
+                                            <span
+                                                class="block h-full bg-[var(--yellow)] transition-all duration-500"
+                                                :class="active === index ? 'w-full' : 'w-0'"
+                                            ></span>
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT: ANIMATED DONUT -->
+                            <div
+                                class="relative flex min-h-[520px] items-center justify-center overflow-hidden p-7 md:p-10"
+                            >
+                                <div
+                                    class="pointer-events-none absolute inset-0 opacity-50"
+                                    aria-hidden="true"
+                                >
+                                    <div
+                                        class="absolute left-0 top-0 h-24 w-40 bg-white/[.025]"
+                                    ></div>
+                                    <div
+                                        class="absolute right-0 top-24 h-24 w-40 bg-white/[.025]"
+                                    ></div>
+                                    <div
+                                        class="absolute bottom-0 left-20 h-24 w-40 bg-white/[.025]"
+                                    ></div>
+                                </div>
+
+                                <div
+                                    class="relative grid w-full max-w-[640px] gap-10 md:grid-cols-[320px_1fr] md:items-center"
+                                >
+                                    <div
+                                        class="relative mx-auto h-[290px] w-[290px]"
+                                    >
+                                        <svg
+                                            viewBox="0 0 42 42"
+                                            class="h-full w-full -rotate-90"
+                                            role="img"
+                                            aria-label="Animated channel allocation chart"
+                                        >
+                                            <circle
+                                                cx="21"
+                                                cy="21"
+                                                r="15.9155"
+                                                fill="transparent"
+                                                stroke="rgba(255,255,255,.06)"
+                                                stroke-width="8"
+                                            ></circle>
+
+                                            <!-- LinkedIn -->
+                                            <circle
+                                                cx="21"
+                                                cy="21"
+                                                r="15.9155"
+                                                fill="transparent"
+                                                stroke="#ffd942"
+                                                stroke-width="8"
+                                                pathLength="100"
+                                                stroke-linecap="butt"
+                                                class="transition-all duration-700 ease-out"
+                                                :stroke-dasharray="mixes[active].values[0] + ' ' + (100 - mixes[active].values[0])"
+                                                :stroke-dashoffset="offset(0)"
+                                            ></circle>
+
+                                            <!-- Email -->
+                                            <circle
+                                                cx="21"
+                                                cy="21"
+                                                r="15.9155"
+                                                fill="transparent"
+                                                stroke="#d6d6d6"
+                                                stroke-width="8"
+                                                pathLength="100"
+                                                stroke-linecap="butt"
+                                                class="transition-all duration-700 ease-out"
+                                                :stroke-dasharray="mixes[active].values[1] + ' ' + (100 - mixes[active].values[1])"
+                                                :stroke-dashoffset="offset(1)"
+                                            ></circle>
+
+                                            <!-- Call -->
+                                            <circle
+                                                cx="21"
+                                                cy="21"
+                                                r="15.9155"
+                                                fill="transparent"
+                                                stroke="#777777"
+                                                stroke-width="8"
+                                                pathLength="100"
+                                                stroke-linecap="butt"
+                                                class="transition-all duration-700 ease-out"
+                                                :stroke-dasharray="mixes[active].values[2] + ' ' + (100 - mixes[active].values[2])"
+                                                :stroke-dashoffset="offset(2)"
+                                            ></circle>
+
+                                            <!-- SMS -->
+                                            <circle
+                                                cx="21"
+                                                cy="21"
+                                                r="15.9155"
+                                                fill="transparent"
+                                                stroke="#2f2f2f"
+                                                stroke-width="8"
+                                                pathLength="100"
+                                                stroke-linecap="butt"
+                                                class="transition-all duration-700 ease-out"
+                                                :stroke-dasharray="mixes[active].values[3] + ' ' + (100 - mixes[active].values[3])"
+                                                :stroke-dashoffset="offset(3)"
+                                            ></circle>
+                                        </svg>
+
+                                        <div
+                                            class="absolute inset-0 grid place-items-center text-center"
+                                        >
+                                            <div>
+                                                <div
+                                                    class="font-bebas text-5xl leading-none"
+                                                >
+                                                    100%
+                                                </div>
+                                                <div
+                                                    class="mt-2 text-[9px] font-black uppercase tracking-[.2em] text-white/30"
+                                                >
+                                                    Channel mix
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-5">
+                                        <div
+                                            class="grid grid-cols-[12px_1fr_auto] items-center gap-4"
+                                        >
+                                            <span
+                                                class="h-3 w-3 bg-[#ffd942]"
+                                            ></span>
+                                            <span
+                                                class="text-sm font-bold uppercase tracking-[.08em]"
+                                                >LinkedIn</span
+                                            >
+                                            <span
+                                                class="font-bebas text-3xl"
+                                                x-text="mixes[active].values[0] + '%'"
+                                            ></span>
+                                        </div>
+
+                                        <div
+                                            class="grid grid-cols-[12px_1fr_auto] items-center gap-4"
+                                        >
+                                            <span
+                                                class="h-3 w-3 bg-[#d6d6d6]"
+                                            ></span>
+                                            <span
+                                                class="text-sm font-bold uppercase tracking-[.08em]"
+                                                >Email</span
+                                            >
+                                            <span
+                                                class="font-bebas text-3xl"
+                                                x-text="mixes[active].values[1] + '%'"
+                                            ></span>
+                                        </div>
+
+                                        <div
+                                            class="grid grid-cols-[12px_1fr_auto] items-center gap-4"
+                                        >
+                                            <span
+                                                class="h-3 w-3 bg-[#777777]"
+                                            ></span>
+                                            <span
+                                                class="text-sm font-bold uppercase tracking-[.08em]"
+                                                >Call</span
+                                            >
+                                            <span
+                                                class="font-bebas text-3xl"
+                                                x-text="mixes[active].values[2] + '%'"
+                                            ></span>
+                                        </div>
+
+                                        <div
+                                            class="grid grid-cols-[12px_1fr_auto] items-center gap-4"
+                                        >
+                                            <span
+                                                class="h-3 w-3 bg-[#2f2f2f]"
+                                            ></span>
+                                            <span
+                                                class="text-sm font-bold uppercase tracking-[.08em]"
+                                                >SMS</span
+                                            >
+                                            <span
+                                                class="font-bebas text-3xl"
+                                                x-text="mixes[active].values[3] + '%'"
+                                            ></span>
+                                        </div>
+
+                                        <div
+                                            class="border-t border-white/10 pt-5"
+                                        >
+                                            <p
+                                                class="text-[10px] font-black uppercase tracking-[.18em] text-white/28"
+                                            >
+                                                Illustrative weighting — actual
+                                                mix is built around your market.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                id="learning-loop"
+                class="relative overflow-hidden border-y border-white/10 bg-[#0b0b0b] text-white"
+                x-data="{
+        test: 0,
+        tests: [
+          {
+            angle: 'Pain-led opener',
+            a: { rate: 3.1, verdict: 'retire' },
+            b: { rate: 5.9, verdict: 'scale' },
+            next: 'Competitor pressure'
+          },
+          {
+            angle: 'Proof-led opener',
+            a: { rate: 4.2, verdict: 'hold' },
+            b: { rate: 6.4, verdict: 'scale' },
+            next: 'Role-specific proof'
+          },
+          {
+            angle: 'Timing-led opener',
+            a: { rate: 5.0, verdict: 'hold' },
+            b: { rate: 7.2, verdict: 'scale' },
+            next: 'Signal + pain combo'
+          }
+        ],
+        nextTest() { this.test = (this.test + 1) % this.tests.length }
+      }"
+                x-init="setInterval(() => nextTest(), 5000)"
+            >
+                <div class="shell py-24 md:py-32">
+                    <div
+                        class="grid gap-10 lg:grid-cols-1 lg:text-center"
+                    >
+                        <div>
+                            <p
+                                class="text-xs font-black uppercase tracking-[.18em] text-[var(--yellow)]"
+                            >
+                                Learning Loop
+                            </p>
+
+                            <h2
+                                class="display mt-5 max-w-3xl text-6xl sm:text-7xl md:text-8xl lg:mx-auto lg:max-w-none lg:whitespace-nowrap lg:text-[clamp(3rem,6.5vw,6rem)]"
+                            >
+                                EVERY SEND<br class="lg:hidden" />
+                                <span class="text-[var(--yellow)]"
+                                    >TEACHES THE NEXT.</span
+                                >
+                            </h2>
+                        </div>
+
+                        <p
+                            class="max-w-xl text-xl leading-[1.15] text-white/52 lg:mx-auto"
+                        >
+                            Messaging gets sharper. New ICP pockets emerge. The
+                            outbound system compounds instead of repeating the
+                            same playbook.
+                        </p>
+                    </div>
+
+                    <div
+                        class="mt-16 grid gap-px bg-white/10 lg:grid-cols-[1.08fr_.92fr]"
+                    >
+                        <!-- A/B TESTING -->
+                        <article
+                            class="relative min-h-[455px] bg-[#0d0d0d] p-7 md:p-9"
+                        >
+                            <div class="flex items-start justify-between gap-5">
+                                <div>
+                                    <p
+                                        class="text-[10px] font-black uppercase tracking-[.2em] text-white/28"
+                                    >
+                                        Message experiment
+                                    </p>
+                                    <h3 class="mt-2 text-3xl font-bold">
+                                        A/B opener angle
+                                    </h3>
+                                </div>
+
+                                <div class="text-right">
+                                    <p
+                                        class="text-[9px] font-black uppercase tracking-[.16em] text-white/25"
+                                    >
+                                        Cycle
+                                    </p>
+                                    <span
+                                        class="font-bebas text-3xl text-[var(--yellow)]"
+                                        x-text="(test + 1) + '/3'"
+                                    ></span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="mt-8 flex items-center justify-between border-y border-white/10 py-4"
+                            >
+                                <span
+                                    class="text-[10px] font-black uppercase tracking-[.16em] text-white/28"
+                                >
+                                    Current angle
+                                </span>
+                                <span
+                                    class="text-base font-bold"
+                                    x-text="tests[test].angle"
+                                ></span>
+                            </div>
+
+                            <div class="mt-9 space-y-7">
+                                <div
+                                    class="grid grid-cols-[54px_1fr_64px_72px] items-center gap-4"
+                                >
+                                    <span class="text-sm font-bold">Var A</span>
+
+                                    <div
+                                        class="h-2 overflow-hidden bg-white/[.06]"
+                                    >
+                                        <div
+                                            class="h-full bg-white/20 transition-all duration-700 ease-out"
+                                            :style="'width:' + Math.min((tests[test].a.rate / 8) * 100, 100) + '%'"
+                                        ></div>
+                                    </div>
+
+                                    <span
+                                        class="font-bebas text-2xl text-white/60"
+                                        x-text="tests[test].a.rate.toFixed(1) + '%'"
+                                    ></span>
+
+                                    <span
+                                        class="text-right text-[9px] font-black uppercase tracking-[.14em] text-white/28"
+                                        x-text="tests[test].a.verdict"
+                                    ></span>
+                                </div>
+
+                                <div
+                                    class="grid grid-cols-[54px_1fr_64px_72px] items-center gap-4"
+                                >
+                                    <span class="text-sm font-bold">Var B</span>
+
+                                    <div
+                                        class="h-2 overflow-hidden bg-white/[.06]"
+                                    >
+                                        <div
+                                            class="h-full bg-[var(--yellow)] transition-all duration-700 ease-out"
+                                            :style="'width:' + Math.min((tests[test].b.rate / 8) * 100, 100) + '%'"
+                                        ></div>
+                                    </div>
+
+                                    <span
+                                        class="font-bebas text-2xl text-[var(--yellow)]"
+                                        x-text="tests[test].b.rate.toFixed(1) + '%'"
+                                    ></span>
+
+                                    <span
+                                        class="text-right text-[9px] font-black uppercase tracking-[.14em] text-[var(--yellow)]"
+                                    >
+                                        ✓
+                                        <span
+                                            x-text="tests[test].b.verdict"
+                                        ></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="absolute inset-x-7 bottom-7 border-t border-white/10 pt-5 md:inset-x-9"
+                            >
+                                <div
+                                    class="flex items-end justify-between gap-6"
+                                >
+                                    <div>
+                                        <p
+                                            class="text-[9px] font-black uppercase tracking-[.16em] text-white/25"
+                                        >
+                                            Next hypothesis
+                                        </p>
+                                        <p
+                                            class="mt-1 text-lg font-semibold"
+                                            x-text="tests[test].next"
+                                        ></p>
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        @click="nextTest()"
+                                        class="grid h-10 w-10 place-items-center border border-white/15 text-white/45 transition hover:border-[var(--yellow)] hover:text-[var(--yellow)]"
+                                        aria-label="Show next message experiment"
+                                    >
+                                        →
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- ICP DISCOVERY -->
+                        <article class="min-h-[455px] bg-[#0d0d0d] p-7 md:p-9">
+                            <div class="flex items-start justify-between gap-5">
+                                <div>
+                                    <p
+                                        class="text-[10px] font-black uppercase tracking-[.2em] text-white/28"
+                                    >
+                                        Pattern detection
+                                    </p>
+                                    <h3 class="mt-2 text-3xl font-bold">
+                                        New ICP segments
+                                    </h3>
+                                </div>
+
+                                <span
+                                    class="border border-[var(--yellow)] px-3 py-2 text-[9px] font-black uppercase tracking-[.16em] text-[var(--yellow)]"
+                                >
+                                    +3 this week
+                                </span>
+                            </div>
+
+                            <div class="mt-9 space-y-3">
+                                <div
+                                    class="grid grid-cols-[10px_1fr_auto] items-center gap-4 border border-[var(--yellow)]/45 bg-[var(--yellow)]/[.04] px-4 py-4"
+                                >
+                                    <span
+                                        class="h-2.5 w-2.5 bg-[var(--yellow)]"
+                                    ></span>
+
+                                    <div>
+                                        <p
+                                            class="text-lg font-semibold leading-none"
+                                        >
+                                            Mid-market SaaS · Series B+
+                                        </p>
+                                        <p
+                                            class="mt-2 text-[9px] font-black uppercase tracking-[.13em] text-white/24"
+                                        >
+                                            Strongest reply concentration
+                                        </p>
+                                    </div>
+
+                                    <span
+                                        class="font-bebas text-3xl text-[var(--yellow)]"
+                                        >624</span
+                                    >
+                                </div>
+
+                                <div
+                                    class="grid grid-cols-[10px_1fr_auto] items-center gap-4 border border-white/10 px-4 py-4"
+                                >
+                                    <span
+                                        class="h-2.5 w-2.5 bg-white/60"
+                                    ></span>
+
+                                    <div>
+                                        <p
+                                            class="text-lg font-semibold leading-none"
+                                        >
+                                            Vertical SaaS · 50–200 employees
+                                        </p>
+                                        <p
+                                            class="mt-2 text-[9px] font-black uppercase tracking-[.13em] text-white/24"
+                                        >
+                                            Emerging response cluster
+                                        </p>
+                                    </div>
+
+                                    <span
+                                        class="font-bebas text-3xl text-white/55"
+                                        >412</span
+                                    >
+                                </div>
+
+                                <div
+                                    class="grid grid-cols-[10px_1fr_auto] items-center gap-4 border border-white/10 px-4 py-4"
+                                >
+                                    <span
+                                        class="h-2.5 w-2.5 bg-white/25"
+                                    ></span>
+
+                                    <div>
+                                        <p
+                                            class="text-lg font-semibold leading-none"
+                                        >
+                                            AI-native tools · Seed–Series A
+                                        </p>
+                                        <p
+                                            class="mt-2 text-[9px] font-black uppercase tracking-[.13em] text-white/24"
+                                        >
+                                            Testing signal quality
+                                        </p>
+                                    </div>
+
+                                    <span
+                                        class="font-bebas text-3xl text-white/35"
+                                        >287</span
+                                    >
+                                </div>
+                            </div>
+
+                            <div
+                                class="mt-8 grid grid-cols-2 border-t border-white/10 pt-6"
+                            >
+                                <div class="border-r border-white/10 pr-5">
+                                    <span class="font-bebas text-4xl"
+                                        >1,323</span
+                                    >
+                                    <p
+                                        class="mt-1 text-[9px] font-black uppercase tracking-[.16em] text-white/24"
+                                    >
+                                        Newly matched accounts
+                                    </p>
+                                </div>
+
+                                <div class="pl-5">
+                                    <span
+                                        class="font-bebas text-4xl text-[var(--yellow)]"
+                                        >03</span
+                                    >
+                                    <p
+                                        class="mt-1 text-[9px] font-black uppercase tracking-[.16em] text-white/24"
+                                    >
+                                        Segments worth testing
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="mt-8 flex items-center justify-between border-t border-white/10 pt-5"
+                            >
+                                <p
+                                    class="max-w-[290px] text-sm leading-[1.15] text-white/34"
+                                >
+                                    Response patterns become hypotheses to
+                                    test—not assumptions we hard-code forever.
+                                </p>
+
+                                <span class="font-bebas text-2xl text-white/14">
+                                    DISCOVER → TEST
+                                </span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="shell py-24 md:py-32">
+                <div
+                    class="relative overflow-hidden bg-[var(--yellow)] px-6 py-14 text-black md:px-12 md:py-20"
+                >
+                    <div
+                        class="absolute -right-10 -top-20 font-bebas text-[240px] leading-none text-black/10"
+                    >
+                        04
+                    </div>
+                    <p
+                        class="relative text-xs font-bold uppercase tracking-[.18em]"
+                    >
+                        The operating principle
+                    </p>
+                    <div
+                        class="relative mt-10 grid gap-10 md:grid-cols-[1fr_auto] md:items-end"
+                    >
+                        <h2
+                            class="display max-w-5xl text-6xl sm:text-7xl md:text-8xl lg:text-9xl"
+                        >
+                            NO DUCT TAPE.<br />NO CHASING.<br />NO BABYSITTING.
+                        </h2>
+                        <a
+                            href="#consultation"
+                            class="inline-flex items-center gap-8 bg-black px-6 py-4 text-xs font-bold uppercase tracking-[.18em] text-white"
+                        >
+                            Book strategy call <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="brick-divider" aria-hidden="true">
+                <div class="brick-field brick-step-left">
+                    <span class="brick brick-dark b1"></span>
+                    <span class="brick brick-dark b2"></span>
+                    <span class="brick brick-accent b3"></span>
+                    <span class="brick brick-dark b4"></span>
+                </div>
+                <div class="brick-field brick-step-right">
+                    <span class="brick brick-dark b1"></span>
+                    <span class="brick brick-dark b2"></span>
+                    <span class="brick brick-accent b3"></span>
+                    <span class="brick brick-dark b4"></span>
+                </div>
+            </section>
+
+            <section
+                id="pricing"
+                class="relative overflow-hidden border-y border-white/10 bg-[#0b0b0b]"
+            >
+                <div class="brick-field brick-crown">
+                    <span class="brick brick-dark b1"></span>
+                    <span class="brick brick-dark b2"></span>
+                    <span class="brick brick-accent b3"></span>
+                    <span class="brick brick-dark b4"></span>
+                    <span class="brick brick-dark b5"></span>
+                    <span class="brick brick-accent b6"></span>
+                </div>
+                <div class="shell py-24 md:py-32">
+                    <div class="mx-auto max-w-5xl text-center">
+                        <p
+                            class="inline-block bg-[var(--yellow)] px-4 py-2 text-[10px] font-black uppercase tracking-[.18em] text-black"
+                        >
+                            Engagements
+                        </p>
+                        <h2
+                            class="display mt-7 text-6xl sm:text-7xl md:text-8xl lg:text-9xl"
+                        >
+                            BUILT FOR WHERE<br /><span
+                                class="text-[var(--yellow)]"
+                                >YOUR GTM IS NOW.</span
+                            >
+                        </h2>
+                        <p
+                            class="mx-auto mt-8 max-w-2xl text-xl leading-[1.15] text-white/52"
+                        >
+                            Start with a focused intervention or hand us the
+                            entire outbound operating layer.
+                        </p>
+                    </div>
+
+                    <div class="pricing-grid mt-16 lg:grid-cols-3">
+                        <article class="pricing-card">
+                            <p
+                                class="text-xs font-black uppercase tracking-[.18em] text-white/38"
+                            >
+                                Diagnostic
+                            </p>
+                            <h3 class="mt-8 text-4xl font-bold">
+                                GTM Systems Audit
+                            </h3>
+                            <p
+                                class="mt-5 text-lg leading-[1.15] text-white/52"
+                            >
+                                A complete teardown of your current outbound
+                                motion, bottlenecks, stack, and highest-leverage
+                                automation opportunities.
+                            </p>
+                            <div class="mt-16 price">FIXED</div>
+                            <p
+                                class="mt-2 text-xs font-bold uppercase tracking-[.16em] text-white/34"
+                            >
+                                Project engagement
+                            </p>
+                        </article>
+
+                        <article class="pricing-card featured">
+                            <span
+                                class="absolute right-8 top-8 bg-black px-3 py-2 text-[10px] font-black uppercase tracking-[.16em] text-white"
+                                >Most common</span
+                            >
+                            <p
+                                class="text-xs font-black uppercase tracking-[.18em] text-black/52"
+                            >
+                                Build
+                            </p>
+                            <h3 class="mt-8 text-4xl font-bold">
+                                Outbound System Build
+                            </h3>
+                            <p
+                                class="mt-5 text-lg leading-[1.15] text-black/68"
+                            >
+                                We design, build, connect, and launch your
+                                multi-channel outbound workflow with custom
+                                agents and operational handoffs.
+                            </p>
+                            <div class="mt-16 price">30 DAYS</div>
+                            <p
+                                class="mt-2 text-xs font-bold uppercase tracking-[.16em] text-black/44"
+                            >
+                                Typical implementation window
+                            </p>
+                        </article>
+
+                        <article class="pricing-card">
+                            <p
+                                class="text-xs font-black uppercase tracking-[.18em] text-white/38"
+                            >
+                                Operate
+                            </p>
+                            <h3 class="mt-8 text-4xl font-bold">
+                                Managed GTM Engine
+                            </h3>
+                            <p
+                                class="mt-5 text-lg leading-[1.15] text-white/52"
+                            >
+                                Ongoing management, optimisation, testing,
+                                reporting, and expansion of the system as your
+                                ICP and offer evolve.
+                            </p>
+                            <div class="mt-16 price">MONTHLY</div>
+                            <p
+                                class="mt-2 text-xs font-bold uppercase tracking-[.16em] text-white/34"
+                            >
+                                Retained engagement
+                            </p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                id="consultation"
+                class="border-y border-white/10 bg-black text-white"
+            >
+                <div
+                    class="shell grid gap-14 py-24 md:py-32 lg:grid-cols-[1fr_.85fr] lg:items-start"
+                >
+                    <div class="lg:sticky lg:top-10">
+                        <p
+                            class="text-xs font-black uppercase tracking-[.18em] text-[var(--yellow)]"
+                        >
+                            Contact
+                        </p>
+                        <h2
+                            class="display mt-7 max-w-3xl text-6xl sm:text-7xl md:text-8xl lg:text-9xl"
+                        >
+                            FIX YOUR<br />OUTBOUND.
+                        </h2>
+                        <p
+                            class="mt-9 max-w-xl text-2xl leading-[1.05] text-white/56"
+                        >
+                            If your GTM depends on people remembering what
+                            happens next, it is already broken.
+                        </p>
+                        <p
+                            class="mt-8 max-w-lg text-lg leading-[1.2] text-white/38"
+                        >
+                            Tell us where leads, follow-up, routing, or
+                            execution currently breaks down. We will prepare the
+                            call around your actual workflow.
+                        </p>
+                    </div>
+
+                    <form @submit.prevent="submitContact()" class="technical-frame min-h-[630px] p-7 md:p-9">
+                        <span class="corner-tr"></span>
+                        <span class="corner-bl"></span>
+
+                        <label class="block border-b border-white/15 py-6">
+                            <span
+                                class="block text-[10px] font-black uppercase tracking-[.2em] text-white/42"
+                                >01 / Name</span
+                            >
+                            <input
+                                name="name"
+                                type="text"
+                                x-model="contactForm.name"
+                                required
+                                class="mt-3 w-full bg-transparent text-2xl outline-none placeholder:text-white/24"
+                                placeholder="Your name"
+                            />
+                        </label>
+
+                        <label class="block border-b border-white/15 py-6">
+                            <span
+                                class="block text-[10px] font-black uppercase tracking-[.2em] text-white/42"
+                                >02 / Work email</span
+                            >
+                            <input
+                                name="email"
+                                type="email"
+                                x-model="contactForm.email"
+                                required
+                                class="mt-3 w-full bg-transparent text-2xl outline-none placeholder:text-white/24"
+                                placeholder="you@company.com"
+                            />
+                        </label>
+
+                        <label class="block border-b border-white/15 py-6">
+                            <span
+                                class="block text-[10px] font-black uppercase tracking-[.2em] text-white/42"
+                                >03 / Company</span
+                            >
+                            <input
+                                name="company"
+                                type="text"
+                                x-model="contactForm.company"
+                                class="mt-3 w-full bg-transparent text-2xl outline-none placeholder:text-white/24"
+                                placeholder="Company name"
+                            />
+                        </label>
+
+                        <label class="block py-6">
+                            <span
+                                class="block text-[10px] font-black uppercase tracking-[.2em] text-white/42"
+                                >04 / What is breaking?</span
+                            >
+                            <textarea
+                                name="message"
+                                rows="5"
+                                x-model="contactForm.message"
+                                required
+                                class="mt-3 w-full resize-none bg-transparent text-2xl outline-none placeholder:text-white/24"
+                                placeholder="Tell us what is leaking"
+                            ></textarea>
+                        </label>
+
+                        <button
+                            type="submit"
+                            :disabled="contactLoading"
+                            class="mt-8 flex w-full items-center justify-between bg-[var(--blue)] px-6 py-5 text-xs font-black uppercase tracking-[.18em] text-white transition hover:brightness-110 disabled:opacity-50"
+                        >
+                            <span x-show="!contactLoading">Request a demo</span>
+                            <span x-show="contactLoading">Sending...</span>
+                            <span>↗</span>
+                        </button>
+                        <div x-show="contactSuccess" class="mt-4 text-sm font-semibold text-[var(--yellow)]">✓ Thanks! We'll be in touch soon.</div>
+                        <div x-show="contactError" class="mt-4 text-sm font-semibold text-red-400" x-text="contactError"></div>
+                    </form>
+                </div>
+            </section>
+
+            <section class="brick-divider light" aria-hidden="true">
+                <div class="brick-field brick-step-left">
+                    <span class="brick light b1"></span>
+                    <span class="brick light b2"></span>
+                    <span class="brick light b3"></span>
+                    <span class="brick light b4"></span>
+                </div>
+                <div class="brick-field brick-step-right">
+                    <span class="brick light b1"></span>
+                    <span class="brick light b2"></span>
+                    <span class="brick light b3"></span>
+                    <span class="brick light b4"></span>
+                </div>
+            </section>
+
+            <section id="faq" class="bg-[#f4f3ef] text-black">
+                <div class="shell py-24 md:py-32" x-data="{ open: 0 }">
+                    <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
+                        <div>
+                            <h2
+                                class="display text-6xl sm:text-7xl md:text-8xl"
+                            >
+                                ASK US<br />THE REAL QUESTIONS.
+                            </h2>
+                        </div>
+                        <p
+                            class="max-w-xl text-2xl leading-[1.05] text-black/46"
+                        >
+                            What we build, who it is for, and where a
+                            done-for-you GTM system actually makes sense.
+                        </p>
+                    </div>
+
+                    <div class="mt-16 border-t border-black/14">
+                        <div class="faq-row">
+                            <button
+                                class="faq-button"
+                                @click="open = open === 0 ? -1 : 0"
+                            >
+                                <span class="font-bebas text-2xl text-black/34"
+                                    >01.</span
+                                >
+                                <span
+                                    class="text-lg font-bold uppercase tracking-[.08em]"
+                                    >What exactly does Reforge GTM build?</span
+                                >
+                                <span
+                                    class="text-2xl"
+                                    x-text="open === 0 ? '−' : '+'"
+                                ></span>
+                            </button>
+                            <div
+                                x-show="open === 0"
+                                x-transition
+                                class="faq-answer"
+                            >
+                                We build the operating layer behind outbound:
+                                data sourcing, enrichment, buying-signal logic,
+                                AI personalisation, sequencing, CRM actions,
+                                reply routing, follow-up, and reporting.
+                            </div>
+                        </div>
+
+                        <div class="faq-row">
+                            <button
+                                class="faq-button"
+                                @click="open = open === 1 ? -1 : 1"
+                            >
+                                <span class="font-bebas text-2xl text-black/34"
+                                    >02.</span
+                                >
+                                <span
+                                    class="text-lg font-bold uppercase tracking-[.08em]"
+                                    >Can you work with our existing tools?</span
+                                >
+                                <span
+                                    class="text-2xl"
+                                    x-text="open === 1 ? '−' : '+'"
+                                ></span>
+                            </button>
+                            <div
+                                x-show="open === 1"
+                                x-transition
+                                class="faq-answer"
+                            >
+                                Yes. We work around your current CRM, sending
+                                infrastructure, enrichment vendors, data
+                                providers, and internal processes unless
+                                replacing something is clearly justified.
+                            </div>
+                        </div>
+
+                        <div class="faq-row">
+                            <button
+                                class="faq-button"
+                                @click="open = open === 2 ? -1 : 2"
+                            >
+                                <span class="font-bebas text-2xl text-black/34"
+                                    >03.</span
+                                >
+                                <span
+                                    class="text-lg font-bold uppercase tracking-[.08em]"
+                                    >Is this only for teams with an SDR
+                                    function?</span
+                                >
+                                <span
+                                    class="text-2xl"
+                                    x-text="open === 2 ? '−' : '+'"
+                                ></span>
+                            </button>
+                            <div
+                                x-show="open === 2"
+                                x-transition
+                                class="faq-answer"
+                            >
+                                No. We can support founder-led sales, lean
+                                growth teams, agencies, and established outbound
+                                teams. The system changes based on who owns
+                                execution and where meetings need to land.
+                            </div>
+                        </div>
+
+                        <div class="faq-row">
+                            <button
+                                class="faq-button"
+                                @click="open = open === 3 ? -1 : 3"
+                            >
+                                <span class="font-bebas text-2xl text-black/34"
+                                    >04.</span
+                                >
+                                <span
+                                    class="text-lg font-bold uppercase tracking-[.08em]"
+                                    >How quickly can the first system go
+                                    live?</span
+                                >
+                                <span
+                                    class="text-2xl"
+                                    x-text="open === 3 ? '−' : '+'"
+                                ></span>
+                            </button>
+                            <div
+                                x-show="open === 3"
+                                x-transition
+                                class="faq-answer"
+                            >
+                                A focused implementation can begin producing
+                                live outreach within roughly one week. More
+                                complex builds involving multiple systems, data
+                                providers, or business units take longer.
+                            </div>
+                        </div>
+
+                        <div class="faq-row">
+                            <button
+                                class="faq-button"
+                                @click="open = open === 4 ? -1 : 4"
+                            >
+                                <span class="font-bebas text-2xl text-black/34"
+                                    >05.</span
+                                >
+                                <span
+                                    class="text-lg font-bold uppercase tracking-[.08em]"
+                                    >Do you guarantee meetings?</span
+                                >
+                                <span
+                                    class="text-2xl"
+                                    x-text="open === 4 ? '−' : '+'"
+                                ></span>
+                            </button>
+                            <div
+                                x-show="open === 4"
+                                x-transition
+                                class="faq-answer"
+                            >
+                                We guarantee the work, implementation, and
+                                iteration discipline—not market demand. Any
+                                agency guaranteeing outcomes it cannot fully
+                                control is selling certainty it does not
+                                possess.
+                            </div>
+                        </div>
+
+                        <div class="faq-row">
+                            <button
+                                class="faq-button"
+                                @click="open = open === 5 ? -1 : 5"
+                            >
+                                <span class="font-bebas text-2xl text-black/34"
+                                    >06.</span
+                                >
+                                <span
+                                    class="text-lg font-bold uppercase tracking-[.08em]"
+                                    >What happens after launch?</span
+                                >
+                                <span
+                                    class="text-2xl"
+                                    x-text="open === 5 ? '−' : '+'"
+                                ></span>
+                            </button>
+                            <div
+                                x-show="open === 5"
+                                x-transition
+                                class="faq-answer"
+                            >
+                                You can run the system internally, retain us to
+                                manage it, or use a hybrid model where your team
+                                owns execution and we handle optimisation, new
+                                workflows, and technical maintenance.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mt-20 grid gap-8 border-t border-black/14 pt-12 lg:grid-cols-[.7fr_1.3fr] lg:items-end"
+                    >
+                        <h3 class="display text-6xl sm:text-7xl">
+                            STILL NEED<br />A STRAIGHT ANSWER?
+                        </h3>
+                        <div>
+                            <p
+                                class="max-w-xl text-2xl leading-[1.05] text-black/46"
+                            >
+                                Send us the situation. We will tell you whether
+                                automation is actually the right answer.
+                            </p>
+                            <a
+                                href="#consultation"
+                                class="mt-8 inline-flex items-center gap-12 bg-[var(--yellow)] px-6 py-4 text-xs font-black uppercase tracking-[.18em]"
+                            >
+                                Get in touch <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="border-t border-white/10">
             <div
-              class="mb-6 inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-black">
-              Built for B2B SaaS teams
+                class="shell flex flex-col gap-4 py-8 text-xs font-semibold uppercase tracking-[.16em] text-white/35 sm:flex-row sm:items-center sm:justify-between"
+            >
+                <span>© 2026 Reforge GTM</span>
+                <span>AI outbound infrastructure for B2B SaaS</span>
             </div>
+        </footer>
 
-            <h1 class="max-w-4xl text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-              Your GTM is leaking.
-            </h1>
+        <script>
+            function appState() {
+                const WORKER_URL = window.location.hostname === 'localhost'
+                    ? 'http://localhost:8787'
+                    : '';
 
-            <p class="mt-6 max-w-2xl text-lg leading-8 text-white/70 sm:text-xl">
-              Reforge GTM rebuilds broken outbound into an AI-powered operating system that runs across tools,
-              channels, and follow-ups without constant manual work.
-            </p>
+                return {
+                    showEmail: false,
+                    menuOpen: false,
+                    quickStartEmail: '',
+                    quickStartLoading: false,
+                    quickStartSuccess: false,
+                    quickStartError: '',
+                    contactForm: {
+                        name: '',
+                        email: '',
+                        company: '',
+                        message: '',
+                    },
+                    contactLoading: false,
+                    contactSuccess: false,
+                    contactError: '',
 
-            <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-              <button type="button" @click="showEmailCapture = !showEmailCapture"
-                class="rounded-2xl bg-blue-600 px-6 py-4 text-base font-semibold text-white transition hover:scale-[1.02]">
-                Fix My GTM
-              </button>
-              <a href="#services"
-                class="rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-base font-semibold transition hover:bg-white hover:text-black">
-                See How It Works
-              </a>
-            </div>
+                    async submitQuickStart() {
+                        this.quickStartError = '';
+                        this.quickStartSuccess = false;
+                        this.quickStartLoading = true;
 
-            <div x-show="showEmailCapture" x-transition.opacity.scale.origin.top.left
-              class="mt-6 max-w-xl rounded-[1.5rem] border border-blue-500/40 bg-white/5 p-4 backdrop-blur">
-              <div class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">Quick start</div>
-              <div class="mt-2 text-lg font-semibold text-white">Drop your work email.</div>
-              <form @submit.prevent="submitQuickStart()" class="mt-4 flex flex-col gap-3 sm:flex-row">
-                <input type="email" x-model="quickStartEmail" placeholder="Work email" required
-                  class="min-w-0 flex-1 rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
-                <button type="submit" :disabled="quickStartLoading"
-                  class="rounded-2xl bg-yellow-400 px-5 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:opacity-50">
-                  <span x-show="!quickStartLoading">Get Started</span>
-                  <span x-show="quickStartLoading">Sending...</span>
-                </button>
-              </form>
-              <div x-show="quickStartSuccess" class="mt-3 text-sm text-green-400">✓ Check your email!</div>
-              <div x-show="quickStartError" class="mt-3 text-sm text-red-400" x-text="quickStartError"></div>
-            </div>
+                        try {
+                            const response = await fetch(WORKER_URL + '/submit-form', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    formType: 'quickstart',
+                                    email: this.quickStartEmail,
+                                }),
+                            });
 
-            <div class="mt-14 grid gap-4 sm:grid-cols-3 capitalize">
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <div class="text-xl font-semibold">End-to-end</div>
-                <div class="mt-2 text-sm leading-6 text-white/60">outbound pipelines</div>
-              </div>
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <div class="text-xl font-semibold">Multi-channel</div>
-                <div class="mt-2 text-sm leading-6 text-white/60">email, LinkedIn, DMs</div>
-              </div>
-              <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <div class="text-xl font-semibold">Custom</div>
-                <div class="mt-2 text-sm leading-6 text-white/60">AI agents for your workflow</div>
-              </div>
-            </div>
-          </div>
+                            const data = await response.json();
+                            if (!response.ok) {
+                                throw new Error(data.error || 'Submission failed');
+                            }
 
-          <div class="relative">
-            <div class="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                <div>
-                  <div class="text-sm font-medium text-white/70">Pipeline Health</div>
-                  <div class="mt-1 text-xs uppercase tracking-[0.2em] text-white/40">Before Reforge</div>
-                </div>
-                <div class="rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">
-                  Leaking
-                </div>
-              </div>
+                            this.quickStartSuccess = true;
+                            this.quickStartEmail = '';
+                            setTimeout(() => {
+                                this.showEmail = false;
+                                this.quickStartSuccess = false;
+                            }, 3000);
+                        } catch (error) {
+                            this.quickStartError = error.message;
+                        } finally {
+                            this.quickStartLoading = false;
+                        }
+                    },
 
-              <div class="space-y-4 py-5">
-                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
-                  <span class="text-sm text-white/70">Lead sourcing</span>
-                  <span class="text-sm font-medium text-white/40">Disconnected</span>
-                </div>
-                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
-                  <span class="text-sm text-white/70">Personalization</span>
-                  <span class="text-sm font-medium text-white/40">Manual</span>
-                </div>
-                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
-                  <span class="text-sm text-white/70">Follow-up logic</span>
-                  <span class="text-sm font-medium text-white/40">Inconsistent</span>
-                </div>
-                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
-                  <span class="text-sm text-white/70">Inbox routing</span>
-                  <span class="text-sm font-medium text-white/40">Messy</span>
-                </div>
-                <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-black/40 px-4 py-3">
-                  <span class="text-sm text-white/70">Booking flow</span>
-                  <span class="text-sm font-medium text-white/40">Delayed</span>
-                </div>
-              </div>
+                    async submitContact() {
+                        this.contactError = '';
+                        this.contactSuccess = false;
+                        this.contactLoading = true;
 
-              <div class="rounded-2xl border border-blue-500 bg-blue-600 p-4 text-white">
-                <div class="text-xs uppercase tracking-[0.2em]">After Reforge</div>
-                <div class="mt-2 text-lg font-semibold">One system. Continuous execution.</div>
-                <p class="mt-2 text-sm leading-6 text-white/90">
-                  Leads flow in, agents personalize, sequences trigger, replies route, and meetings book without your
-                  team stitching tools together.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+                        try {
+                            const response = await fetch(WORKER_URL + '/submit-form', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    formType: 'contact',
+                                    name: this.contactForm.name,
+                                    email: this.contactForm.email,
+                                    company: this.contactForm.company,
+                                    message: this.contactForm.message,
+                                }),
+                            });
 
-    <section class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-      <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.25em] text-white/50">What you’ll get on the call</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-            No pitch deck. No black box. Just the system.
-          </h2>
-        </div>
+                            const data = await response.json();
+                            if (!response.ok) {
+                                throw new Error(data.error || 'Submission failed');
+                            }
 
-        <div class="grid gap-4">
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="mb-3 text-sm font-semibold text-blue-400">01</div>
-            <p class="text-lg leading-7">A live breakdown of where your GTM is leaking</p>
-          </div>
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="mb-3 text-sm font-semibold text-blue-400">02</div>
-            <p class="text-lg leading-7">A demo of how outbound would run for your business</p>
-          </div>
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="mb-3 text-sm font-semibold text-blue-400">03</div>
-            <p class="text-lg leading-7">How to build Claude agents specifically for your company</p>
-          </div>
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div class="mb-3 text-sm font-semibold text-blue-400">04</div>
-            <p class="text-lg leading-7">The operating model behind the system — no gatekeeping</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="services" class="border-y border-white/10 bg-black">
-      <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div class="max-w-3xl">
-          <p class="text-sm font-semibold uppercase tracking-[0.25em] text-white/50">Services</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Automating business workflows with AI, custom-built for B2B SaaS operations.
-          </h2>
-        </div>
-
-        <div class="mt-12 grid gap-6 lg:grid-cols-3">
-          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-            <div class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-red-400">Infrastructure</div>
-            <h3 class="text-xl font-semibold">AI Workflow Automation</h3>
-            <p class="mt-4 text-sm leading-7 text-white/70">
-              Replace fragmented ops with unified, AI-driven workflows built around how your company actually sells.
-            </p>
-          </div>
-          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-            <div class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-red-400">Acquisition</div>
-            <h3 class="text-xl font-semibold">Done-For-You Outbound Systems</h3>
-            <p class="mt-4 text-sm leading-7 text-white/70">
-              Deploy automated outreach across email, LinkedIn, and direct channels with sequencing, follow-up, and
-              routing handled end to end.
-            </p>
-          </div>
-          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-            <div class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-red-400">Intelligence</div>
-            <h3 class="text-xl font-semibold">Custom Claude-Based Agents</h3>
-            <p class="mt-4 text-sm leading-7 text-white/70">
-              Purpose-built agents trained on your messaging, processes, and internal context — designed for your team,
-              not a generic demo.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-      <div
-        class="grid gap-8 rounded-[2rem] border border-yellow-400 bg-yellow-400 p-8 text-black lg:grid-cols-[1fr_auto] lg:items-center lg:p-12">
-        <div>
-          <h2 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-            No duct-taped CRM stack.<br/>
-            No babysitting AI toys.<br/>
-            No VAs chasing tasks.
-          </h2>
-        </div>
-        <a href="#contact"
-          class="inline-flex items-center justify-center rounded-2xl bg-black px-6 py-4 text-base font-semibold text-white">
-          Book Strategy Call
-        </a>
-      </div>
-    </section>
-
-    <section id="contact" class="border-t border-white/10 bg-black">
-      <div class="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div class="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-start">
-          <div>
-            <h2 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              If your outbound depends on humans remembering to follow up, it’s already broken.
-            </h2>
-          </div>
-
-          <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8">
-            <div class="text-xl font-semibold">Book your call</div>
-
-            <form @submit.prevent="submitContact()" class="mt-8 space-y-4">
-              <input type="text" x-model="contactForm.name" placeholder="Name" required
-                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
-              <input type="email" x-model="contactForm.email" placeholder="Work email" required
-                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
-              <input type="text" x-model="contactForm.company" placeholder="Company"
-                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35" />
-              <textarea x-model="contactForm.message" placeholder="What’s breaking in your GTM?" rows="4" required
-                class="w-full rounded-2xl border border-white/10 bg-black px-4 py-3 text-sm text-white outline-none placeholder:text-white/35"></textarea>
-              <button type="submit" :disabled="contactLoading" class="w-full rounded-2xl bg-blue-600 px-5 py-4 text-sm font-semibold text-white disabled:opacity-50">
-                <span x-show="!contactLoading">Request Demo</span>
-                <span x-show="contactLoading">Sending...</span>
-              </button>
-              <div x-show="contactSuccess" class="text-sm text-green-400">✓ Thanks! We’ll be in touch soon.</div>
-              <div x-show="contactError" class="text-sm text-red-400" x-text="contactError"></div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    function appState() {
-      const WORKER_URL = window.location.hostname === 'localhost'
-        ? 'http://localhost:8787'
-        : '';
-
-      return {
-        showEmailCapture: false,
-        quickStartEmail: '',
-        quickStartLoading: false,
-        quickStartSuccess: false,
-        quickStartError: '',
-        contactForm: {
-          name: '',
-          email: '',
-          company: '',
-          message: '',
-        },
-        contactLoading: false,
-        contactSuccess: false,
-        contactError: '',
-
-        async submitQuickStart() {
-          this.quickStartError = '';
-          this.quickStartSuccess = false;
-          this.quickStartLoading = true;
-
-          try {
-            const response = await fetch(WORKER_URL + '/submit-form', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                formType: 'quickstart',
-                email: this.quickStartEmail,
-              }),
-            });
-
-            const data = await response.json();
-            if (!response.ok) {
-              throw new Error(data.error || 'Submission failed');
+                            this.contactSuccess = true;
+                            this.contactForm = { name: '', email: '', company: '', message: '' };
+                            setTimeout(() => {
+                                this.contactSuccess = false;
+                            }, 5000);
+                        } catch (error) {
+                            this.contactError = error.message;
+                        } finally {
+                            this.contactLoading = false;
+                        }
+                    },
+                };
             }
-
-            this.quickStartSuccess = true;
-            this.quickStartEmail = '';
-            setTimeout(() => {
-              this.showEmailCapture = false;
-              this.quickStartSuccess = false;
-            }, 3000);
-          } catch (error) {
-            this.quickStartError = error.message;
-          } finally {
-            this.quickStartLoading = false;
-          }
-        },
-
-        async submitContact() {
-          this.contactError = '';
-          this.contactSuccess = false;
-          this.contactLoading = true;
-
-          try {
-            const response = await fetch(WORKER_URL + '/submit-form', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                formType: 'contact',
-                name: this.contactForm.name,
-                email: this.contactForm.email,
-                company: this.contactForm.company,
-                message: this.contactForm.message,
-              }),
-            });
-
-            const data = await response.json();
-            if (!response.ok) {
-              throw new Error(data.error || 'Submission failed');
-            }
-
-            this.contactSuccess = true;
-            this.contactForm = { name: '', email: '', company: '', message: '' };
-            setTimeout(() => {
-              this.contactSuccess = false;
-            }, 5000);
-          } catch (error) {
-            this.contactError = error.message;
-          } finally {
-            this.contactLoading = false;
-          }
-        },
-      };
-    }
-  </script>
-</body>
-
+        </script>
+    </body>
 </html>
