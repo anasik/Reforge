@@ -1,3 +1,5 @@
+import html from '../index.html';
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -110,9 +112,10 @@ export default {
       }
     }
 
-    return new Response(JSON.stringify({ error: 'Not found' }), {
-      status: 404,
-      headers: { 'Content-Type': 'application/json' },
+    // Serve HTML for all other requests
+    return new Response(html, {
+      status: 200,
+      headers: { 'Content-Type': 'text/html' },
     });
   },
 };

@@ -1,14 +1,8 @@
 name = "reforge-gtm"
-type = "javascript"
 main = "src/index.js"
 compatibility_date = "2025-03-29"
 
 [[kv_namespaces]]
 binding = "FORMS"
-id = "reforge-forms"
-preview_id = "reforge-forms-preview"
-
-[env.production]
-kv_namespaces = [
-  { binding = "FORMS", id = "reforge-forms" }
-]
+id = "e117752717a8437baaa763c6b233b01f"
+preview_id = "e117752717a8437baaa763c6b233b01f"
