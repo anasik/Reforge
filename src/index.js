@@ -1,5 +1,3 @@
-import html from '../index.html';
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -112,10 +110,7 @@ export default {
       }
     }
 
-    // Serve HTML for all other requests
-    return new Response(html, {
-      status: 200,
-      headers: { 'Content-Type': 'text/html' },
-    });
+    // Anything else is served as a static asset (index.html, favicons, etc.)
+    return env.ASSETS.fetch(request);
   },
 };

@@ -2,6 +2,11 @@ name = "reforge-gtm"
 main = "src/index.js"
 compatibility_date = "2025-03-29"
 
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/submit-form", "/submissions"]
+
 [[kv_namespaces]]
 binding = "FORMS"
 id = "e117752717a8437baaa763c6b233b01f"
