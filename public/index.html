@@ -687,10 +687,35 @@
 
                             <h1
                                 class="display max-w-[880px] text-[72px] sm:text-[96px] md:text-[124px] xl:text-[148px]"
+                                x-data="{
+                                    signals: [
+                                        'HIRED A NEW CMO',
+                                        'ENGAGED WITH A COMPETITOR',
+                                        'INCREASED THEIR AD SPEND',
+                                        'LAUNCHED ON SHOPIFY',
+                                        'REBRANDED'
+                                    ],
+                                    signalIndex: 0
+                                }"
+                                x-init="setInterval(() => { signalIndex = (signalIndex + 1) % signals.length }, 1800)"
                             >
                                 YOUR NEXT CLIENT JUST<br />
-                                HIRED A NEW CMO<br />
-                                <!-- You'll convert them first -->
+                                <span class="relative inline-grid overflow-hidden align-top">
+                                    <template x-for="(signal, idx) in signals" :key="idx">
+                                        <span
+                                            x-show="signalIndex === idx"
+                                            x-transition:enter="transition ease-out duration-500"
+                                            x-transition:enter-start="opacity-0 translate-y-[0.2em]"
+                                            x-transition:enter-end="opacity-100 translate-y-0"
+                                            x-transition:leave="transition ease-in duration-500 absolute inset-0"
+                                            x-transition:leave-start="opacity-100 translate-y-0"
+                                            x-transition:leave-end="opacity-0 -translate-y-[0.2em]"
+                                            x-text="signal"
+                                            style="grid-area: 1 / 1;"
+                                        ></span>
+                                    </template>
+                                </span>
+                                <br />
                             </h1>
 
                             <div
